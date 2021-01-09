@@ -1,7 +1,7 @@
 
 from flask import Flask
 from main.routes import main
-from user.routes import users
+from users.routes import users
 
 
 app = Flask(__name__)

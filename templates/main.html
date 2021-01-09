@@ -19,12 +19,13 @@
         <div class="container">
             <h3 class="logo">ToDo Application</h3>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="btn btn-primary me-md-2" type="button">login</button>
-                <button class="btn btn-primary" type="button">register</button>
+                <a class="nav-item nav-link" href="#">login</a>
+                <a class="nav-item nav-link btn-primary" href="{{ url_for('users.register') }}">register</a>
             </div>
         </div>
     </nav>
-
+    {% block content %}
+    {% endblock content %}
 
     <!-- Optional JavaScript; choose one of the two! -->
 
