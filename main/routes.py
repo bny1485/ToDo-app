@@ -1,7 +1,8 @@
-from flask import Blueprint
+from flask import Blueprint, render_template
+
 
 main = Blueprint('main', __name__)
 
 @main.route('/')
 def hello_world():
-    return 'my todo app'
+    return render_template('main.html')
