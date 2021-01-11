@@ -4,23 +4,60 @@
 <div class="container">
     <div class="mt-4 col-lg-6 col-md-8 col-sm-10 col-xs-10 offset-lg-3 offset-md-2 offset-sm-1 offset-xs-1">
         <form>
+            {{ form.hidden_tag() }}
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                    placeholder="name@example.com">
+                {{ form.user_name.label(class='form-label') }}
+                {% if form.user_name.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.user_name.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.user_name(class='form-control', placeholder='your username') }}
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.email.label(class='form-label') }}
+                {% if form.email.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class='form-control', placeholder="name@example.com") }}
+                {% endif %}
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                {{ form.password.label(class='form-label') }}
+                {% if form.password.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class='form-control', placeholder='your password') }}
+                {% endif %}
             </div>
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            <div class="mb-3">
+                {{ form.confirm_password.label(class='form-label') }}
+                {% if form.confirm_password.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.confirm_password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.confirm_password(class='form-control', placeholder='confirm your password') }}
+                {% endif %}
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <br>
+        <div class="mb-3 form-check">
+            {{ form.submit(class="btn btn-outline-primary") }}
+        </div>
         <div class="border-top pt-3">
             <small class="text-muted">
                 Already Have An Account? <a class="ml-2" href="#">Sign In</a>
