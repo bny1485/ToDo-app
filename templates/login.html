@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="mt-4 col-lg-6 col-md-8 col-sm-10 col-xs-10 offset-lg-3 offset-md-2 offset-sm-1 offset-xs-1">
+        <form>
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.email.label(class='form-label') }}
+                {% if form.email.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class='form-control', placeholder="name@example.com") }}
+                {% endif %}
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+                {{ form.password.label(class='form-label') }}
+                {% if form.password.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class='form-control', placeholder='your password') }}
+                {% endif %}
+            </div>
+        </form>
+        <div class="mb-3 form-check">
+            {{ form.submit(class="btn btn-outline-primary") }}
+        </div>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+		    Do not Have An Account? <a class="ml-2" href="{{ url_for('users.register') }}">Sign out</a>
+            </small>
+        </div>
+    </div>
+</div>
+{% endblock content %}
