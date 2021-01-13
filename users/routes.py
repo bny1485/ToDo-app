@@ -4,6 +4,7 @@ from users.forms import RegistrationForm, LoginForm
 
 users = Blueprint('users', __name__)
 
+
 @users.route('/register')
 def register():
     form = RegistrationForm()
@@ -13,4 +14,4 @@ def register():
 @users.route('/login')
 def login():
     form = LoginForm()
-    return render_template('login.html', title='register', form=form)
+    return render_template('login.html', title='login', form=form)
