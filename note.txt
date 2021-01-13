@@ -1,1 +1,6 @@
 export FLASK_APP=run.py ; export FLASK_DEBUG=1
+
+
+1 - run python command line
+2 - from run import db
+3 - db.create_all()
