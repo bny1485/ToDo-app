@@ -28,3 +28,4 @@ venv/*
 
 # swp
 *.swp
+task.db
