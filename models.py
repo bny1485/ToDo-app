@@ -20,3 +20,14 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'{self.user_name} {self.email}'
+
+
+class Task(db.Model):
+    """ task model for create a todo model and conected to the user """
+    id = db.Column(db.Integer, primary_key=True)
+    task = db.Column(db.String(20), nullable=False)
+    done = db.Column(db.Boolean)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f'{self.id}, {self.task}-{self.done}'
