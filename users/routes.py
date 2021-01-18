@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, redirect, url_for
 from users.forms import RegistrationForm, LoginForm
 from run import db, bcrypt
 from models import User
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, login_required, logout_user
 
 
 users = Blueprint('users', __name__)
@@ -24,7 +24,6 @@ def register():
     return render_template('register.html', title='register', form=form)
 
 
-
 @users.route('/login', methods=['POST', 'GET'])
 def login():
     ''' log in users to there account '''
@@ -34,6 +33,13 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user, remember=False)
-            return redirect(url_for('main.home'))
+            login_user(user, remember=True)
+            return redirect(url_for('task.create_todo'))
     return render_template('login.html', title='login', form=form)
+
+
+@users.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.home'))
