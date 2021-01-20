@@ -31,3 +31,22 @@ def delete(task_id):
     db.session.delete(user_task)
     db.session.commit()
     return redirect(url_for('task.create_todo'))
+
+
+
+@task.route('/task/<int:task_id>/done-true', methods=['POST', 'GET'])
+@login_required
+def change_done_true(task_id):
+    user_task = Task.query.get_or_404(task_id)
+    user_task.done = True
+    db.session.commit()
+    return redirect(url_for('task.create_todo'))
+
+
+@task.route('/task/<int:task_id>/done-false', methods=['POST', 'GET'])
+@login_required
+def change_done_false(task_id):
+    user_task = Task.query.get_or_404(task_id)
+    user_task.done = False
+    db.session.commit()
+    return redirect(url_for('task.create_todo'))
