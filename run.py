@@ -19,8 +19,10 @@ login_manager.login_message_category = 'info'
 
 from users.routes import users
 from main.routes import main
+from task.routes import task
 app.register_blueprint(main)
 app.register_blueprint(users)
+app.register_blueprint(task)
 
 
 if __name__ == "__main__":
