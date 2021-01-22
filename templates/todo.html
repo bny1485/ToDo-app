@@ -9,7 +9,7 @@
                 data-bs-target="#staticBackdrop">
                 create new task
             </button>
-            <a type="button" class="btn btn-outline-danger" href="{{ url_for('task.delete_all_done') }}" >
+            <a type="button" class="btn btn-outline-danger" href="{{ url_for('task.delete_all_done') }}">
                 delete all which is done
             </a>
         </form>
@@ -42,9 +42,44 @@
     {% endif %}
     {% endfor %}
 
+    <div class="col-md-4 offset-md-4 accordion accordion-flush" id="accordionFlushExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    done
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="row accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    {% for item in user_tasks %}
+                    {% if item.done %}
+                    <form class="row" method="POST">
+                        {{ form.csrf_token }}
+                        <div class="border rounded-1 mb-3">
+                            <div class="mb-1 mt-1">
+                                <p>{{ item.task }}</p>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+                                <a href="{{ url_for('task.delete', task_id=item.id) }}" type="submit"
+                                    class="btn btn-outline-danger mb-2 mt-1 btn-sm">delete</a>
+                                {% if item.done %}
+                                <a href="{{ url_for('task.change_done_false', task_id=item.id) }}" type="submit"
+                                    class="btn btn-outline-success btn-sm mb-2 mt-1">undo done</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
-
-
+    <br>
+</div>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
