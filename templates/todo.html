@@ -15,6 +15,33 @@
         </form>
     </nav>
 
+
+    <br>
+    <!-- Button trigger modal -->
+    {% for item in user_tasks %}
+    {% if not item.done %}
+    <form method="POST">
+        {{ form.csrf_token }}
+        <div class="container col-md-4 border rounded-1 mb-3">
+            <div class="mb-3 mt-3">
+                <p>{{ item.task }}</p>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{{ url_for('task.delete', task_id=item.id) }}" type="submit"
+                    class="btn btn-outline-danger mb-2 mt-1 btn-sm">delete</a>
+
+                <a href="{{ url_for('task.edit', task_id=item.id) }}" type="submit"
+                    class="btn btn-outline-primary mb-2 mt-1 btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">edit</a>
+
+                <a href="{{ url_for('task.change_done_true', task_id=item.id) }}" type="submit"
+                    class="btn btn-outline-success btn-sm mb-2 mt-1">done</a>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+    {% endfor %}
+
     </div>
 
 
