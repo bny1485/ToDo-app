@@ -2,4 +2,31 @@
 
 
 {% block content %}
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{ model_title }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <form method="POST">
+                {{ form.csrf_token }}
+                {{ form.user_task(class="form-control", placeholder="wtite your text here") }}
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    {{ form.save(class="btn btn-primary", placeholder="save") }}
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}
