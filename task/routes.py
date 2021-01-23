@@ -64,3 +64,13 @@ def edit(task_id):
     elif request.method == 'GET':
         form.user_task.data = user_task.task
     return render_template('edit.html', form=form, user_task=user_task)
+
+
+@task.route('/task/delete_all_done', methods=['POST', 'GET'])
+@login_required
+def delete_all_done():
+    user_task = Task.query.filter_by(user_id=current_user.id).filter(Task.done==1)
+    for _i in user_task:
+        db.session.delete(_i)
+        db.session.commit()
+    return redirect(url_for('task.create_todo'))
