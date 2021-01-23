@@ -10,7 +10,7 @@
                 create new task
             </button>
             <a type="button" class="btn btn-outline-danger" href="{{ url_for('task.delete_all_done') }}">
-                delete all which is done
+                delete all (which is done)
             </a>
         </form>
     </nav>
@@ -30,9 +30,8 @@
                 <a href="{{ url_for('task.delete', task_id=item.id) }}" type="submit"
                     class="btn btn-outline-danger mb-2 mt-1 btn-sm">delete</a>
 
-                <a href="{{ url_for('task.edit', task_id=item.id) }}" type="submit"
-                    class="btn btn-outline-primary mb-2 mt-1 btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop">edit</a>
+                <a href="{{ url_for('task.edit', task_id=item.id) }}" type="button"
+                    class="btn btn-outline-primary mb-2 mt-1 btn-sm">edit</a>
 
                 <a href="{{ url_for('task.change_done_true', task_id=item.id) }}" type="submit"
                     class="btn btn-outline-success btn-sm mb-2 mt-1">done</a>
@@ -89,17 +88,13 @@
                 <h5 class="modal-title" id="staticBackdropLabel">{{ model_title }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-
             <form method="POST">
                 {{ form.csrf_token }}
                 {{ form.user_task(class="form-control", placeholder="wtite your text here") }}
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     {{ form.save(class="btn btn-primary", placeholder="save") }}
                 </div>
-
             </form>
         </div>
     </div>
