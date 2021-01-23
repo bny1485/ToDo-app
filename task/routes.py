@@ -1,7 +1,6 @@
-
-from flask import Blueprint, render_template, redirect, url_for, abort
+from flask import Blueprint, render_template, redirect, url_for, abort, request
 from flask_login import login_required, current_user
-from task.forms import Todo
+from task.forms import TodoForm
 from models import Task
 from run import db
 
@@ -11,7 +10,7 @@ task = Blueprint('task', __name__)
 @task.route('/task', methods=['POST', 'GET'])
 @login_required
 def create_todo():
-    form = Todo()
+    form = TodoForm()
     user_tasks = Task.query.filter_by(
         user_id=current_user.id).order_by(Task.id.desc())
     if form.validate_on_submit():
@@ -33,7 +32,6 @@ def delete(task_id):
     return redirect(url_for('task.create_todo'))
 
 
-
 @task.route('/task/<int:task_id>/done-true', methods=['POST', 'GET'])
 @login_required
 def change_done_true(task_id):
@@ -50,3 +48,19 @@ def change_done_false(task_id):
     user_task.done = False
     db.session.commit()
     return redirect(url_for('task.create_todo'))
+
+
+@task.route('/task/<int:task_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit(task_id):
+    user_task = Task.query.get_or_404(task_id)
+    if user_task.author != current_user:
+        abort(403)
+    form = TodoForm()
+    if form.validate_on_submit():
+        user_task.task = form.user_task.data
+        db.session.commit()
+        return redirect(url_for('task.create_todo'))
+    elif request.method == 'GET':
+        form.user_task.data = user_task.task
+    return render_template('edit.html', form=form, user_task=user_task)
