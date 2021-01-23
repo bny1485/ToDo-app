@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+<br>
+<form method="POST">
+    {{ form.csrf_token }}
+    <div class="container col-md-4">
+        <div class="mb-3 mt-3">
+            {{ form.user_task(class='form-control') }}
+        </div>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            {{ form.save(class="btn btn-outline-success mb-2 mt-1 btn-sm") }}
+        </div>
+    </div>
+</form>
+{% endblock %}
+
