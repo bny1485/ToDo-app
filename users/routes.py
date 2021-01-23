@@ -1,5 +1,5 @@
 """ this is route file """
-from flask import Blueprint, render_template, redirect, url_for
+from flask import Blueprint, render_template, redirect, url_for, request
 from users.forms import RegistrationForm, LoginForm
 from run import db, bcrypt
 from models import User
@@ -34,7 +34,8 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
-            return redirect(url_for('task.create_todo'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else redirect(url_for('task.create_todo'))
     return render_template('login.html', title='login', form=form)
 
 
